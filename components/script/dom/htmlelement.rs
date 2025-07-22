@@ -35,7 +35,7 @@ use crate::dom::customelementregistry::CallbackReaction;
 use crate::dom::document::{Document, FocusInitiator};
 use crate::dom::documentfragment::DocumentFragment;
 use crate::dom::domstringmap::DOMStringMap;
-use crate::dom::element::{AttributeMutation, Element};
+use crate::dom::element::{AttributeMutation, Element, ElementCreator};
 use crate::dom::elementinternals::ElementInternals;
 use crate::dom::event::Event;
 use crate::dom::eventtarget::EventTarget;
@@ -67,8 +67,9 @@ impl HTMLElement {
         tag_name: LocalName,
         prefix: Option<Prefix>,
         document: &Document,
+        creator: ElementCreator,
     ) -> HTMLElement {
-        HTMLElement::new_inherited_with_state(ElementState::empty(), tag_name, prefix, document)
+        HTMLElement::new_inherited_with_state(ElementState::empty(), tag_name, prefix, document, creator)
     }
 
     pub(crate) fn new_inherited_with_state(
@@ -76,6 +77,7 @@ impl HTMLElement {
         tag_name: LocalName,
         prefix: Option<Prefix>,
         document: &Document,
+        creator: ElementCreator,
     ) -> HTMLElement {
         HTMLElement {
             element: Element::new_inherited_with_state(
@@ -84,6 +86,7 @@ impl HTMLElement {
                 ns!(html),
                 prefix,
                 document,
+                creator,
             ),
             style_decl: Default::default(),
             dataset: Default::default(),
@@ -97,9 +100,10 @@ impl HTMLElement {
         document: &Document,
         proto: Option<HandleObject>,
         can_gc: CanGc,
+        creator: ElementCreator,
     ) -> DomRoot<HTMLElement> {
         Node::reflect_node_with_proto(
-            Box::new(HTMLElement::new_inherited(local_name, prefix, document)),
+            Box::new(HTMLElement::new_inherited(local_name, prefix, document, creator)),
             document,
             proto,
             can_gc,

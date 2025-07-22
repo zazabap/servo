@@ -203,6 +203,7 @@ pub struct Element {
     #[no_trace]
     selector_flags: Cell<ElementSelectorFlags>,
     rare_data: DomRefCell<Option<Box<ElementRareData>>>,
+    line_number: u64,
 }
 
 impl fmt::Debug for Element {
@@ -283,6 +284,7 @@ impl Element {
         namespace: Namespace,
         prefix: Option<Prefix>,
         document: &Document,
+        creator: ElementCreator,
     ) -> Element {
         Element::new_inherited_with_state(
             ElementState::empty(),
@@ -290,6 +292,7 @@ impl Element {
             namespace,
             prefix,
             document,
+            creator,
         )
     }
 
@@ -299,6 +302,7 @@ impl Element {
         namespace: Namespace,
         prefix: Option<Prefix>,
         document: &Document,
+        creator: ElementCreator,
     ) -> Element {
         Element {
             node: Node::new_inherited(document),
@@ -315,6 +319,7 @@ impl Element {
             state: Cell::new(state),
             selector_flags: Cell::new(ElementSelectorFlags::empty()),
             rare_data: Default::default(),
+            line_number: creator.return_line_number(),
         }
     }
 
@@ -325,10 +330,11 @@ impl Element {
         document: &Document,
         proto: Option<HandleObject>,
         can_gc: CanGc,
+        creator: ElementCreator,
     ) -> DomRoot<Element> {
         Node::reflect_node_with_proto(
             Box::new(Element::new_inherited(
-                local_name, namespace, prefix, document,
+                local_name, namespace, prefix, document, creator
             )),
             document,
             proto,
