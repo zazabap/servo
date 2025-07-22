@@ -57,7 +57,7 @@ use crate::dom::bindings::str::{DOMString, FromInputValueString, ToInputValueStr
 use crate::dom::clipboardevent::ClipboardEvent;
 use crate::dom::compositionevent::CompositionEvent;
 use crate::dom::document::Document;
-use crate::dom::element::{AttributeMutation, Element, LayoutElementHelpers};
+use crate::dom::element::{AttributeMutation, Element, ElementCreator, LayoutElementHelpers};
 use crate::dom::event::{Event, EventBubbles, EventCancelable};
 use crate::dom::eventtarget::EventTarget;
 use crate::dom::file::File;
@@ -367,6 +367,7 @@ impl HTMLInputElement {
         local_name: LocalName,
         prefix: Option<Prefix>,
         document: &Document,
+        creator: ElementCreator,
     ) -> HTMLInputElement {
         let constellation_sender = document
             .window()
@@ -379,6 +380,7 @@ impl HTMLInputElement {
                 local_name,
                 prefix,
                 document,
+                creator,
             ),
             input_type: Cell::new(Default::default()),
             placeholder: DomRefCell::new(DOMString::new()),
@@ -414,10 +416,11 @@ impl HTMLInputElement {
         document: &Document,
         proto: Option<HandleObject>,
         can_gc: CanGc,
+        creator: ElementCreator,
     ) -> DomRoot<HTMLInputElement> {
         Node::reflect_node_with_proto(
             Box::new(HTMLInputElement::new_inherited(
-                local_name, prefix, document,
+                local_name, prefix, document, creator,
             )),
             document,
             proto,

@@ -11,6 +11,7 @@ use crate::dom::document::Document;
 use crate::dom::htmlelement::HTMLElement;
 use crate::dom::node::Node;
 use crate::script_runtime::CanGc;
+use crate::dom::element::ElementCreator;
 
 #[dom_struct]
 pub(crate) struct HTMLFrameElement {
@@ -22,9 +23,10 @@ impl HTMLFrameElement {
         local_name: LocalName,
         prefix: Option<Prefix>,
         document: &Document,
+        creator: ElementCreator,
     ) -> HTMLFrameElement {
         HTMLFrameElement {
-            htmlelement: HTMLElement::new_inherited(local_name, prefix, document),
+            htmlelement: HTMLElement::new_inherited(local_name, prefix, document, creator),
         }
     }
 
@@ -35,10 +37,11 @@ impl HTMLFrameElement {
         document: &Document,
         proto: Option<HandleObject>,
         can_gc: CanGc,
+        creator: ElementCreator,
     ) -> DomRoot<HTMLFrameElement> {
         Node::reflect_node_with_proto(
             Box::new(HTMLFrameElement::new_inherited(
-                local_name, prefix, document,
+                local_name, prefix, document, creator,
             )),
             document,
             proto,

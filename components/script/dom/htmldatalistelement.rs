@@ -12,6 +12,7 @@ use crate::dom::bindings::root::DomRoot;
 use crate::dom::document::Document;
 use crate::dom::htmlcollection::HTMLCollection;
 use crate::dom::htmlelement::HTMLElement;
+use crate::dom::element::ElementCreator;
 use crate::dom::htmloptionelement::HTMLOptionElement;
 use crate::dom::node::{Node, NodeTraits};
 use crate::script_runtime::CanGc;
@@ -26,9 +27,10 @@ impl HTMLDataListElement {
         local_name: LocalName,
         prefix: Option<Prefix>,
         document: &Document,
+        creator: ElementCreator,
     ) -> HTMLDataListElement {
         HTMLDataListElement {
-            htmlelement: HTMLElement::new_inherited(local_name, prefix, document),
+            htmlelement: HTMLElement::new_inherited(local_name, prefix, document, creator),
         }
     }
 
@@ -39,10 +41,11 @@ impl HTMLDataListElement {
         document: &Document,
         proto: Option<HandleObject>,
         can_gc: CanGc,
+        creator: ElementCreator,
     ) -> DomRoot<HTMLDataListElement> {
         Node::reflect_node_with_proto(
             Box::new(HTMLDataListElement::new_inherited(
-                local_name, prefix, document,
+                local_name, prefix, document, creator,
             )),
             document,
             proto,

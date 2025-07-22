@@ -9,6 +9,7 @@ use js::rust::HandleObject;
 use crate::dom::bindings::root::DomRoot;
 use crate::dom::document::Document;
 use crate::dom::htmlelement::HTMLElement;
+use crate::dom::element::ElementCreator;
 use crate::dom::node::Node;
 use crate::script_runtime::CanGc;
 
@@ -34,9 +35,10 @@ impl HTMLHeadingElement {
         prefix: Option<Prefix>,
         document: &Document,
         level: HeadingLevel,
+        creator: ElementCreator,
     ) -> HTMLHeadingElement {
         HTMLHeadingElement {
-            htmlelement: HTMLElement::new_inherited(local_name, prefix, document),
+            htmlelement: HTMLElement::new_inherited(local_name, prefix, document, creator),
             level,
         }
     }
@@ -49,10 +51,11 @@ impl HTMLHeadingElement {
         proto: Option<HandleObject>,
         level: HeadingLevel,
         can_gc: CanGc,
+        creator: ElementCreator,
     ) -> DomRoot<HTMLHeadingElement> {
         Node::reflect_node_with_proto(
             Box::new(HTMLHeadingElement::new_inherited(
-                local_name, prefix, document, level,
+                local_name, prefix, document, level, creator,
             )),
             document,
             proto,

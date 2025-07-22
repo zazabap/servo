@@ -16,6 +16,7 @@ use crate::dom::htmlelement::HTMLElement;
 use crate::dom::node::Node;
 use crate::dom::virtualmethods::VirtualMethods;
 use crate::script_runtime::CanGc;
+use crate::dom::element::ElementCreator;
 
 #[dom_struct]
 pub(crate) struct HTMLLIElement {
@@ -27,9 +28,10 @@ impl HTMLLIElement {
         local_name: LocalName,
         prefix: Option<Prefix>,
         document: &Document,
+        creator: ElementCreator,
     ) -> HTMLLIElement {
         HTMLLIElement {
-            htmlelement: HTMLElement::new_inherited(local_name, prefix, document),
+            htmlelement: HTMLElement::new_inherited(local_name, prefix, document, creator),
         }
     }
 
@@ -40,9 +42,10 @@ impl HTMLLIElement {
         document: &Document,
         proto: Option<HandleObject>,
         can_gc: CanGc,
+        creator: ElementCreator,
     ) -> DomRoot<HTMLLIElement> {
         Node::reflect_node_with_proto(
-            Box::new(HTMLLIElement::new_inherited(local_name, prefix, document)),
+            Box::new(HTMLLIElement::new_inherited(local_name, prefix, document, creator)),
             document,
             proto,
             can_gc,

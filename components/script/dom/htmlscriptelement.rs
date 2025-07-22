@@ -221,15 +221,17 @@ impl HTMLScriptElement {
         document: &Document,
         creator: ElementCreator,
     ) -> HTMLScriptElement {
+        let is_parser_created = creator.is_parser_created();
+        let line_number = creator.return_line_number();
         HTMLScriptElement {
             id: ScriptId(Uuid::new_v4()),
-            htmlelement: HTMLElement::new_inherited(local_name, prefix, document),
+            htmlelement: HTMLElement::new_inherited(local_name, prefix, document, creator),
             already_started: Cell::new(false),
-            parser_inserted: Cell::new(creator.is_parser_created()),
-            non_blocking: Cell::new(!creator.is_parser_created()),
+            parser_inserted: Cell::new(is_parser_created),
+            non_blocking: Cell::new(!is_parser_created),
             parser_document: Dom::from_ref(document),
             preparation_time_document: MutNullableDom::new(None),
-            line_number: creator.return_line_number(),
+            line_number,
             script_text: DomRefCell::new(DOMString::new()),
         }
     }

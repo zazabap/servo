@@ -1322,8 +1322,9 @@ impl HTMLImageElement {
         document: &Document,
         creator: ElementCreator,
     ) -> HTMLImageElement {
+        let line_number = creator.return_line_number(); // Extract before moving 
         HTMLImageElement {
-            htmlelement: HTMLElement::new_inherited(local_name, prefix, document),
+            htmlelement: HTMLElement::new_inherited(local_name, prefix, document, creator),
             image_request: Cell::new(ImageRequestPhase::Current),
             current_request: DomRefCell::new(ImageRequest {
                 state: State::Unavailable,
@@ -1350,7 +1351,7 @@ impl HTMLImageElement {
             source_set: DomRefCell::new(SourceSet::new()),
             last_selected_source: DomRefCell::new(None),
             image_decode_promises: DomRefCell::new(vec![]),
-            line_number: creator.return_line_number(),
+            line_number,
         }
     }
 

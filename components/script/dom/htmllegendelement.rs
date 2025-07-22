@@ -11,7 +11,7 @@ use crate::dom::bindings::codegen::Bindings::NodeBinding::NodeMethods;
 use crate::dom::bindings::inheritance::Castable;
 use crate::dom::bindings::root::{DomRoot, MutNullableDom};
 use crate::dom::document::Document;
-use crate::dom::element::Element;
+use crate::dom::element::{Element, ElementCreator};
 use crate::dom::htmlelement::HTMLElement;
 use crate::dom::htmlfieldsetelement::HTMLFieldSetElement;
 use crate::dom::htmlformelement::{FormControl, HTMLFormElement};
@@ -30,9 +30,10 @@ impl HTMLLegendElement {
         local_name: LocalName,
         prefix: Option<Prefix>,
         document: &Document,
+        creator: ElementCreator,
     ) -> HTMLLegendElement {
         HTMLLegendElement {
-            htmlelement: HTMLElement::new_inherited(local_name, prefix, document),
+            htmlelement: HTMLElement::new_inherited(local_name, prefix, document, creator),
             form_owner: Default::default(),
         }
     }
@@ -44,10 +45,11 @@ impl HTMLLegendElement {
         document: &Document,
         proto: Option<HandleObject>,
         can_gc: CanGc,
+        creator: ElementCreator,
     ) -> DomRoot<HTMLLegendElement> {
         Node::reflect_node_with_proto(
             Box::new(HTMLLegendElement::new_inherited(
-                local_name, prefix, document,
+                local_name, prefix, document, creator,
             )),
             document,
             proto,

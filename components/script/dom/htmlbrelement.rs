@@ -11,6 +11,7 @@ use crate::dom::document::Document;
 use crate::dom::htmlelement::HTMLElement;
 use crate::dom::node::Node;
 use crate::script_runtime::CanGc;
+use crate::dom::element::ElementCreator;
 
 #[dom_struct]
 pub(crate) struct HTMLBRElement {
@@ -22,9 +23,10 @@ impl HTMLBRElement {
         local_name: LocalName,
         prefix: Option<Prefix>,
         document: &Document,
+        creator: ElementCreator,
     ) -> HTMLBRElement {
         HTMLBRElement {
-            htmlelement: HTMLElement::new_inherited(local_name, prefix, document),
+            htmlelement: HTMLElement::new_inherited(local_name, prefix, document, creator),
         }
     }
 
@@ -35,9 +37,10 @@ impl HTMLBRElement {
         document: &Document,
         proto: Option<HandleObject>,
         can_gc: CanGc,
+        creator: ElementCreator,
     ) -> DomRoot<HTMLBRElement> {
         Node::reflect_node_with_proto(
-            Box::new(HTMLBRElement::new_inherited(local_name, prefix, document)),
+            Box::new(HTMLBRElement::new_inherited(local_name, prefix, document, creator)),
             document,
             proto,
             can_gc,

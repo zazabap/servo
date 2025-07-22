@@ -13,7 +13,7 @@ use crate::dom::bindings::inheritance::Castable;
 use crate::dom::bindings::root::{Dom, DomRoot};
 use crate::dom::bindings::str::{DOMString, USVString};
 use crate::dom::document::Document;
-use crate::dom::element::Element;
+use crate::dom::element::{Element, ElementCreator};
 use crate::dom::htmlelement::HTMLElement;
 use crate::dom::node::Node;
 use crate::dom::texttrack::TextTrack;
@@ -42,9 +42,10 @@ impl HTMLTrackElement {
         prefix: Option<Prefix>,
         document: &Document,
         track: &TextTrack,
+        creator: ElementCreator,
     ) -> HTMLTrackElement {
         HTMLTrackElement {
-            htmlelement: HTMLElement::new_inherited(local_name, prefix, document),
+            htmlelement: HTMLElement::new_inherited(local_name, prefix, document, creator),
             ready_state: ReadyState::None,
             track: Dom::from_ref(track),
         }
@@ -56,6 +57,7 @@ impl HTMLTrackElement {
         document: &Document,
         proto: Option<HandleObject>,
         can_gc: CanGc,
+        creator: ElementCreator,
     ) -> DomRoot<HTMLTrackElement> {
         let track = TextTrack::new(
             document.window(),
@@ -69,7 +71,7 @@ impl HTMLTrackElement {
         );
         Node::reflect_node_with_proto(
             Box::new(HTMLTrackElement::new_inherited(
-                local_name, prefix, document, &track,
+                local_name, prefix, document, &track, creator,
             )),
             document,
             proto,

@@ -13,7 +13,7 @@ use crate::dom::bindings::inheritance::Castable;
 use crate::dom::bindings::root::{Dom, DomRoot, Root};
 use crate::dom::bindings::str::{DOMString, USVString};
 use crate::dom::document::Document;
-use crate::dom::element::AttributeMutation;
+use crate::dom::element::{AttributeMutation, ElementCreator};
 use crate::dom::htmlelement::HTMLElement;
 use crate::dom::htmlimageelement::HTMLImageElement;
 use crate::dom::htmlmediaelement::HTMLMediaElement;
@@ -31,9 +31,10 @@ impl HTMLSourceElement {
         local_name: LocalName,
         prefix: Option<Prefix>,
         document: &Document,
+        creator: ElementCreator,
     ) -> HTMLSourceElement {
         HTMLSourceElement {
-            htmlelement: HTMLElement::new_inherited(local_name, prefix, document),
+            htmlelement: HTMLElement::new_inherited(local_name, prefix, document, creator),
         }
     }
 
@@ -44,10 +45,11 @@ impl HTMLSourceElement {
         document: &Document,
         proto: Option<HandleObject>,
         can_gc: CanGc,
+        creator: ElementCreator,
     ) -> DomRoot<HTMLSourceElement> {
         Node::reflect_node_with_proto(
             Box::new(HTMLSourceElement::new_inherited(
-                local_name, prefix, document,
+                local_name, prefix, document, creator,
             )),
             document,
             proto,

@@ -38,7 +38,7 @@ use crate::dom::csp::CspReporting;
 use crate::dom::document::{Document, determine_policy_for_token};
 use crate::dom::domtokenlist::DOMTokenList;
 use crate::dom::element::{
-    AttributeMutation, Element, LayoutElementHelpers, reflect_referrer_policy_attribute,
+    AttributeMutation, Element, ElementCreator, LayoutElementHelpers, reflect_referrer_policy_attribute,
 };
 use crate::dom::eventtarget::EventTarget;
 use crate::dom::globalscope::GlobalScope;
@@ -483,9 +483,10 @@ impl HTMLIFrameElement {
         local_name: LocalName,
         prefix: Option<Prefix>,
         document: &Document,
+        creator: ElementCreator,
     ) -> HTMLIFrameElement {
         HTMLIFrameElement {
-            htmlelement: HTMLElement::new_inherited(local_name, prefix, document),
+            htmlelement: HTMLElement::new_inherited(local_name, prefix, document, creator),
             browsing_context_id: Cell::new(None),
             webview_id: Cell::new(None),
             pipeline_id: Cell::new(None),
@@ -505,10 +506,11 @@ impl HTMLIFrameElement {
         document: &Document,
         proto: Option<HandleObject>,
         can_gc: CanGc,
+        creator: ElementCreator,
     ) -> DomRoot<HTMLIFrameElement> {
         Node::reflect_node_with_proto(
             Box::new(HTMLIFrameElement::new_inherited(
-                local_name, prefix, document,
+                local_name, prefix, document, creator,
             )),
             document,
             proto,

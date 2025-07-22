@@ -38,7 +38,7 @@ use crate::dom::bindings::root::{Dom, DomRoot, MutNullableDom};
 use crate::dom::bindings::str::DOMString;
 use crate::dom::characterdata::CharacterData;
 use crate::dom::document::Document;
-use crate::dom::element::{AttributeMutation, Element};
+use crate::dom::element::{AttributeMutation, Element, ElementCreator};
 use crate::dom::event::Event;
 use crate::dom::eventtarget::EventTarget;
 use crate::dom::htmlcollection::CollectionFilter;
@@ -114,6 +114,7 @@ impl HTMLSelectElement {
         local_name: LocalName,
         prefix: Option<Prefix>,
         document: &Document,
+        creator: ElementCreator,
     ) -> HTMLSelectElement {
         HTMLSelectElement {
             htmlelement: HTMLElement::new_inherited_with_state(
@@ -121,6 +122,7 @@ impl HTMLSelectElement {
                 local_name,
                 prefix,
                 document,
+                creator,
             ),
             options: Default::default(),
             form_owner: Default::default(),
@@ -137,10 +139,11 @@ impl HTMLSelectElement {
         document: &Document,
         proto: Option<HandleObject>,
         can_gc: CanGc,
+        creator: ElementCreator,
     ) -> DomRoot<HTMLSelectElement> {
         let n = Node::reflect_node_with_proto(
             Box::new(HTMLSelectElement::new_inherited(
-                local_name, prefix, document,
+                local_name, prefix, document, creator,
             )),
             document,
             proto,

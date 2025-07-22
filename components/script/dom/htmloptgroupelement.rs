@@ -14,7 +14,7 @@ use crate::dom::bindings::codegen::GenericBindings::NodeBinding::Node_Binding::N
 use crate::dom::bindings::inheritance::Castable;
 use crate::dom::bindings::root::DomRoot;
 use crate::dom::document::Document;
-use crate::dom::element::{AttributeMutation, Element};
+use crate::dom::element::{AttributeMutation, Element, ElementCreator};
 use crate::dom::htmlelement::HTMLElement;
 use crate::dom::htmloptionelement::HTMLOptionElement;
 use crate::dom::htmlselectelement::HTMLSelectElement;
@@ -35,6 +35,7 @@ impl HTMLOptGroupElement {
         local_name: LocalName,
         prefix: Option<Prefix>,
         document: &Document,
+        creator: ElementCreator,
     ) -> HTMLOptGroupElement {
         HTMLOptGroupElement {
             htmlelement: HTMLElement::new_inherited_with_state(
@@ -42,6 +43,7 @@ impl HTMLOptGroupElement {
                 local_name,
                 prefix,
                 document,
+                creator,
             ),
         }
     }
@@ -53,10 +55,11 @@ impl HTMLOptGroupElement {
         document: &Document,
         proto: Option<HandleObject>,
         can_gc: CanGc,
+        creator: ElementCreator,
     ) -> DomRoot<HTMLOptGroupElement> {
         Node::reflect_node_with_proto(
             Box::new(HTMLOptGroupElement::new_inherited(
-                local_name, prefix, document,
+                local_name, prefix, document, creator,
             )),
             document,
             proto,

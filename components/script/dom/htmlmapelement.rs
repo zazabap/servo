@@ -11,6 +11,7 @@ use crate::dom::bindings::root::DomRoot;
 use crate::dom::document::Document;
 use crate::dom::htmlareaelement::HTMLAreaElement;
 use crate::dom::htmlelement::HTMLElement;
+use crate::dom::element::ElementCreator;
 use crate::dom::node::{Node, ShadowIncluding};
 use crate::script_runtime::CanGc;
 
@@ -24,9 +25,10 @@ impl HTMLMapElement {
         local_name: LocalName,
         prefix: Option<Prefix>,
         document: &Document,
+        creator: ElementCreator,
     ) -> HTMLMapElement {
         HTMLMapElement {
-            htmlelement: HTMLElement::new_inherited(local_name, prefix, document),
+            htmlelement: HTMLElement::new_inherited(local_name, prefix, document, creator),
         }
     }
 
@@ -37,9 +39,10 @@ impl HTMLMapElement {
         document: &Document,
         proto: Option<HandleObject>,
         can_gc: CanGc,
+        creator: ElementCreator,
     ) -> DomRoot<HTMLMapElement> {
         Node::reflect_node_with_proto(
-            Box::new(HTMLMapElement::new_inherited(local_name, prefix, document)),
+            Box::new(HTMLMapElement::new_inherited(local_name, prefix, document, creator)),
             document,
             proto,
             can_gc,

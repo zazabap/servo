@@ -24,7 +24,7 @@ use crate::dom::bindings::root::{DomRoot, MutNullableDom};
 use crate::dom::bindings::str::{DOMString, USVString};
 use crate::dom::document::Document;
 use crate::dom::domtokenlist::DOMTokenList;
-use crate::dom::element::{AttributeMutation, Element, reflect_referrer_policy_attribute};
+use crate::dom::element::{AttributeMutation, Element, ElementCreator, reflect_referrer_policy_attribute};
 use crate::dom::event::Event;
 use crate::dom::eventtarget::EventTarget;
 use crate::dom::htmlelement::HTMLElement;
@@ -51,9 +51,10 @@ impl HTMLAnchorElement {
         local_name: LocalName,
         prefix: Option<Prefix>,
         document: &Document,
+        creator: ElementCreator,
     ) -> HTMLAnchorElement {
         HTMLAnchorElement {
-            htmlelement: HTMLElement::new_inherited(local_name, prefix, document),
+            htmlelement: HTMLElement::new_inherited(local_name, prefix, document, creator),
             rel_list: Default::default(),
             relations: Cell::new(LinkRelations::empty()),
             url: DomRefCell::new(None),
@@ -67,10 +68,11 @@ impl HTMLAnchorElement {
         document: &Document,
         proto: Option<HandleObject>,
         can_gc: CanGc,
+        creator: ElementCreator,
     ) -> DomRoot<HTMLAnchorElement> {
         Node::reflect_node_with_proto(
             Box::new(HTMLAnchorElement::new_inherited(
-                local_name, prefix, document,
+                local_name, prefix, document, creator,
             )),
             document,
             proto,

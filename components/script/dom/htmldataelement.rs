@@ -13,6 +13,7 @@ use crate::dom::document::Document;
 use crate::dom::htmlelement::HTMLElement;
 use crate::dom::node::Node;
 use crate::script_runtime::CanGc;
+use crate::dom::element::ElementCreator;
 
 #[dom_struct]
 pub(crate) struct HTMLDataElement {
@@ -24,9 +25,10 @@ impl HTMLDataElement {
         local_name: LocalName,
         prefix: Option<Prefix>,
         document: &Document,
+        creator: ElementCreator,
     ) -> HTMLDataElement {
         HTMLDataElement {
-            htmlelement: HTMLElement::new_inherited(local_name, prefix, document),
+            htmlelement: HTMLElement::new_inherited(local_name, prefix, document, creator),
         }
     }
 
@@ -37,9 +39,10 @@ impl HTMLDataElement {
         document: &Document,
         proto: Option<HandleObject>,
         can_gc: CanGc,
+        creator: ElementCreator,
     ) -> DomRoot<HTMLDataElement> {
         Node::reflect_node_with_proto(
-            Box::new(HTMLDataElement::new_inherited(local_name, prefix, document)),
+            Box::new(HTMLDataElement::new_inherited(local_name, prefix, document, creator)),
             document,
             proto,
             can_gc,

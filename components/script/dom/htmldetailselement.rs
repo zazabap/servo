@@ -18,7 +18,7 @@ use crate::dom::bindings::inheritance::Castable;
 use crate::dom::bindings::refcounted::Trusted;
 use crate::dom::bindings::root::{Dom, DomRoot};
 use crate::dom::document::Document;
-use crate::dom::element::{AttributeMutation, Element};
+use crate::dom::element::{AttributeMutation, Element, ElementCreator};
 use crate::dom::eventtarget::EventTarget;
 use crate::dom::htmlelement::HTMLElement;
 use crate::dom::htmlslotelement::HTMLSlotElement;
@@ -57,9 +57,10 @@ impl HTMLDetailsElement {
         local_name: LocalName,
         prefix: Option<Prefix>,
         document: &Document,
+        creator: ElementCreator,
     ) -> HTMLDetailsElement {
         HTMLDetailsElement {
-            htmlelement: HTMLElement::new_inherited(local_name, prefix, document),
+            htmlelement: HTMLElement::new_inherited(local_name, prefix, document, creator),
             toggle_counter: Cell::new(0),
             shadow_tree: Default::default(),
         }
@@ -72,10 +73,11 @@ impl HTMLDetailsElement {
         document: &Document,
         proto: Option<HandleObject>,
         can_gc: CanGc,
+        creator: ElementCreator,
     ) -> DomRoot<HTMLDetailsElement> {
         Node::reflect_node_with_proto(
             Box::new(HTMLDetailsElement::new_inherited(
-                local_name, prefix, document,
+                local_name, prefix, document, creator,
             )),
             document,
             proto,

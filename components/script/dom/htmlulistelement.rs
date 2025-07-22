@@ -10,6 +10,7 @@ use crate::dom::bindings::codegen::Bindings::HTMLUListElementBinding::HTMLUListE
 use crate::dom::bindings::root::DomRoot;
 use crate::dom::bindings::str::DOMString;
 use crate::dom::document::Document;
+use crate::dom::element::ElementCreator;
 use crate::dom::htmlelement::HTMLElement;
 use crate::dom::node::Node;
 use crate::script_runtime::CanGc;
@@ -24,9 +25,10 @@ impl HTMLUListElement {
         local_name: LocalName,
         prefix: Option<Prefix>,
         document: &Document,
+        creator: ElementCreator,
     ) -> HTMLUListElement {
         HTMLUListElement {
-            htmlelement: HTMLElement::new_inherited(local_name, prefix, document),
+            htmlelement: HTMLElement::new_inherited(local_name, prefix, document, creator),
         }
     }
 
@@ -37,10 +39,11 @@ impl HTMLUListElement {
         document: &Document,
         proto: Option<HandleObject>,
         can_gc: CanGc,
+        creator: ElementCreator,
     ) -> DomRoot<HTMLUListElement> {
         Node::reflect_node_with_proto(
             Box::new(HTMLUListElement::new_inherited(
-                local_name, prefix, document,
+                local_name, prefix, document, creator,
             )),
             document,
             proto,
