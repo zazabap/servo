@@ -47,8 +47,8 @@ impl HTMLTemplateElement {
         prefix: Option<Prefix>,
         document: &Document,
         proto: Option<HandleObject>,
-        can_gc: CanGc,
         creator: ElementCreator,
+        can_gc: CanGc,
     ) -> DomRoot<HTMLTemplateElement> {
         let n = Node::reflect_node_with_proto(
             Box::new(HTMLTemplateElement::new_inherited(

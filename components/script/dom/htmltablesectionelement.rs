@@ -46,8 +46,8 @@ impl HTMLTableSectionElement {
         prefix: Option<Prefix>,
         document: &Document,
         proto: Option<HandleObject>,
-        can_gc: CanGc,
         creator: ElementCreator,
+        can_gc: CanGc,
     ) -> DomRoot<HTMLTableSectionElement> {
         let n = Node::reflect_node_with_proto(
             Box::new(HTMLTableSectionElement::new_inherited(

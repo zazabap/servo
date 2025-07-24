@@ -38,8 +38,8 @@ impl HTMLHtmlElement {
         prefix: Option<Prefix>,
         document: &Document,
         proto: Option<HandleObject>,
-        can_gc: CanGc,
         creator: ElementCreator,
+        can_gc: CanGc,
     ) -> DomRoot<HTMLHtmlElement> {
         let n = Node::reflect_node_with_proto(
             Box::new(HTMLHtmlElement::new_inherited(localName, prefix, document, creator)),

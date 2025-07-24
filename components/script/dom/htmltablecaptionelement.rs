@@ -37,8 +37,8 @@ impl HTMLTableCaptionElement {
         prefix: Option<Prefix>,
         document: &Document,
         proto: Option<HandleObject>,
+        creator: ElementCreator,
         can_gc: CanGc,
-        creator: ElementCreator
     ) -> DomRoot<HTMLTableCaptionElement> {
         let n = Node::reflect_node_with_proto(
             Box::new(HTMLTableCaptionElement::new_inherited(

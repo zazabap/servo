@@ -36,8 +36,8 @@ impl HTMLOListElement {
         prefix: Option<Prefix>,
         document: &Document,
         proto: Option<HandleObject>,
-        can_gc: CanGc,
         creator: ElementCreator,
+        can_gc: CanGc,
     ) -> DomRoot<HTMLOListElement> {
         Node::reflect_node_with_proto(
             Box::new(HTMLOListElement::new_inherited(

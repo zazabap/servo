@@ -52,8 +52,8 @@ impl HTMLTableCellElement {
         prefix: Option<Prefix>,
         document: &Document,
         proto: Option<HandleObject>,
-        can_gc: CanGc,
         creator: ElementCreator,
+        can_gc: CanGc,
     ) -> DomRoot<HTMLTableCellElement> {
         let n = Node::reflect_node_with_proto(
             Box::new(HTMLTableCellElement::new_inherited(

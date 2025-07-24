@@ -54,8 +54,8 @@ impl HTMLOutputElement {
         prefix: Option<Prefix>,
         document: &Document,
         proto: Option<HandleObject>,
-        can_gc: CanGc,
         creator: ElementCreator,
+        can_gc: CanGc,
     ) -> DomRoot<HTMLOutputElement> {
         Node::reflect_node_with_proto(
             Box::new(HTMLOutputElement::new_inherited(

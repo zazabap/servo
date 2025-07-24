@@ -62,8 +62,8 @@ impl HTMLMeterElement {
         prefix: Option<Prefix>,
         document: &Document,
         proto: Option<HandleObject>,
-        can_gc: CanGc,
         creator: ElementCreator,
+        can_gc: CanGc,
     ) -> DomRoot<HTMLMeterElement> {
         Node::reflect_node_with_proto(
             Box::new(HTMLMeterElement::new_inherited(

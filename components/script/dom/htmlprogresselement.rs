@@ -60,8 +60,8 @@ impl HTMLProgressElement {
         prefix: Option<Prefix>,
         document: &Document,
         proto: Option<HandleObject>,
-        can_gc: CanGc,
         creator: ElementCreator,
+        can_gc: CanGc,
     ) -> DomRoot<HTMLProgressElement> {
         Node::reflect_node_with_proto(
             Box::new(HTMLProgressElement::new_inherited(

@@ -36,8 +36,8 @@ impl HTMLFrameElement {
         prefix: Option<Prefix>,
         document: &Document,
         proto: Option<HandleObject>,
-        can_gc: CanGc,
         creator: ElementCreator,
+        can_gc: CanGc,
     ) -> DomRoot<HTMLFrameElement> {
         Node::reflect_node_with_proto(
             Box::new(HTMLFrameElement::new_inherited(

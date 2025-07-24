@@ -72,8 +72,8 @@ impl HTMLDetailsElement {
         prefix: Option<Prefix>,
         document: &Document,
         proto: Option<HandleObject>,
-        can_gc: CanGc,
         creator: ElementCreator,
+        can_gc: CanGc,
     ) -> DomRoot<HTMLDetailsElement> {
         Node::reflect_node_with_proto(
             Box::new(HTMLDetailsElement::new_inherited(

@@ -37,8 +37,8 @@ impl HTMLMenuElement {
         prefix: Option<Prefix>,
         document: &Document,
         proto: Option<HandleObject>,
-        can_gc: CanGc,
         creator: ElementCreator,
+        can_gc: CanGc,
     ) -> DomRoot<HTMLMenuElement> {
         Node::reflect_node_with_proto(
             Box::new(HTMLMenuElement::new_inherited(local_name, prefix, document, creator)),

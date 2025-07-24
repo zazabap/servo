@@ -50,8 +50,8 @@ impl HTMLHeadingElement {
         document: &Document,
         proto: Option<HandleObject>,
         level: HeadingLevel,
-        can_gc: CanGc,
         creator: ElementCreator,
+        can_gc: CanGc,
     ) -> DomRoot<HTMLHeadingElement> {
         Node::reflect_node_with_proto(
             Box::new(HTMLHeadingElement::new_inherited(

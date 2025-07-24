@@ -36,8 +36,8 @@ impl HTMLBRElement {
         prefix: Option<Prefix>,
         document: &Document,
         proto: Option<HandleObject>,
-        can_gc: CanGc,
         creator: ElementCreator,
+        can_gc: CanGc,
     ) -> DomRoot<HTMLBRElement> {
         Node::reflect_node_with_proto(
             Box::new(HTMLBRElement::new_inherited(local_name, prefix, document, creator)),

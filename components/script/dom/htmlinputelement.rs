@@ -415,8 +415,8 @@ impl HTMLInputElement {
         prefix: Option<Prefix>,
         document: &Document,
         proto: Option<HandleObject>,
-        can_gc: CanGc,
         creator: ElementCreator,
+        can_gc: CanGc,
     ) -> DomRoot<HTMLInputElement> {
         Node::reflect_node_with_proto(
             Box::new(HTMLInputElement::new_inherited(

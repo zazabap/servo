@@ -142,8 +142,8 @@ impl HTMLFormElement {
         prefix: Option<Prefix>,
         document: &Document,
         proto: Option<HandleObject>,
-        can_gc: CanGc,
         creator: ElementCreator,
+        can_gc: CanGc,
     ) -> DomRoot<HTMLFormElement> {
         Node::reflect_node_with_proto(
             Box::new(HTMLFormElement::new_inherited(local_name, prefix, document, creator)),

@@ -61,8 +61,8 @@ impl HTMLFieldSetElement {
         prefix: Option<Prefix>,
         document: &Document,
         proto: Option<HandleObject>,
-        can_gc: CanGc,
         creator: ElementCreator,
+        can_gc: CanGc,
     ) -> DomRoot<HTMLFieldSetElement> {
         Node::reflect_node_with_proto(
             Box::new(HTMLFieldSetElement::new_inherited(

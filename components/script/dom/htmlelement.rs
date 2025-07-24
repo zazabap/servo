@@ -99,8 +99,8 @@ impl HTMLElement {
         prefix: Option<Prefix>,
         document: &Document,
         proto: Option<HandleObject>,
-        can_gc: CanGc,
         creator: ElementCreator,
+        can_gc: CanGc,
     ) -> DomRoot<HTMLElement> {
         Node::reflect_node_with_proto(
             Box::new(HTMLElement::new_inherited(local_name, prefix, document, creator)),

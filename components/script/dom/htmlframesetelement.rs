@@ -39,8 +39,8 @@ impl HTMLFrameSetElement {
         prefix: Option<Prefix>,
         document: &Document,
         proto: Option<HandleObject>,
-        can_gc: CanGc,
         creator: ElementCreator,
+        can_gc: CanGc,
     ) -> DomRoot<HTMLFrameSetElement> {
         let n = Node::reflect_node_with_proto(
             Box::new(HTMLFrameSetElement::new_inherited(

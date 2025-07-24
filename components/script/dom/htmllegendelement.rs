@@ -44,8 +44,8 @@ impl HTMLLegendElement {
         prefix: Option<Prefix>,
         document: &Document,
         proto: Option<HandleObject>,
-        can_gc: CanGc,
         creator: ElementCreator,
+        can_gc: CanGc,
     ) -> DomRoot<HTMLLegendElement> {
         Node::reflect_node_with_proto(
             Box::new(HTMLLegendElement::new_inherited(

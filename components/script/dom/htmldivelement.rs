@@ -38,8 +38,8 @@ impl HTMLDivElement {
         prefix: Option<Prefix>,
         document: &Document,
         proto: Option<HandleObject>,
-        can_gc: CanGc,
         creator: ElementCreator,
+        can_gc: CanGc,
     ) -> DomRoot<HTMLDivElement> {
         Node::reflect_node_with_proto(
             Box::new(HTMLDivElement::new_inherited(local_name, prefix, document, creator)),

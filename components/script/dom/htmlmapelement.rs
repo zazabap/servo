@@ -38,8 +38,8 @@ impl HTMLMapElement {
         prefix: Option<Prefix>,
         document: &Document,
         proto: Option<HandleObject>,
-        can_gc: CanGc,
         creator: ElementCreator,
+        can_gc: CanGc,
     ) -> DomRoot<HTMLMapElement> {
         Node::reflect_node_with_proto(
             Box::new(HTMLMapElement::new_inherited(local_name, prefix, document, creator)),
